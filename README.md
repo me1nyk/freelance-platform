@@ -104,6 +104,16 @@ Once the server is running, open the browser and go to:
 - **Interactive Docs:** [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 - **Redoc:** [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
 
+### Admin Credentials
+To access the **Admin Panel**, log in with the following test credentials:
+```json
+{
+    "email": "john.doe@example.com",
+    "password": "Johndoe_567"
+}
+```
+If the login is successful, you’ll receive a JWT token in the response.
+
 ---
 
 ## API Endpoints
@@ -152,6 +162,34 @@ Once the server is running, open the browser and go to:
 | **POST** | `/ai/price/`      | Suggest a price for a new request |
 
 ---
+
+### Generate Reports
+Generate structured daily or monthly reports based on job requests to track trends, budgets, and skill demands.
+
+#### Example Request:  
+```bash
+GET http://127.0.0.1:8000/ai/reports/?date=2025-01-16&report_type=daily
+```
+
+### Generate Statistics  
+Get statistics based on job request titles, including trends, budget distribution, and competition.  
+
+#### Example Request: 
+
+```bash
+GET http://127.0.0.1:8000/ai/statistics/?title=Web Developer
+```
+### Price Suggestion
+This endpoint estimates a budget for a job request based on similar past requests.
+```bash
+POST http://127.0.0.1:8000/ai/price
+```
+#### Request Body:
+```{
+    "title": "Web Developer",
+    "description": "Develop a website from scratch with a responsive design."
+}
+```
 
 ## Code Formatting & Linting
 
