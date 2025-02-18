@@ -26,6 +26,9 @@ share/python-wheels/
 .installed.cfg
 *.egg
 .idea
+alembic.ini
+alembic/versions/*.pyc
+alembic/__pycache__/
 MANIFEST
 
 # PyInstaller
@@ -171,4 +174,5 @@ poetry.toml
 # LSP config files
 pyrightconfig.json
 
-# End of https://www.toptal.com/developers/gitignore/api/python
+# model files
+/granite-3.1-2b-instruct*
