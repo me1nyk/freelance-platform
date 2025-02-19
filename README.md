@@ -71,22 +71,40 @@ pip install -r requirements.txt
 Create a **.env** file in the root directory.
 Use **.env.example** as a template and fill in the required values.
 
-### 5. Run database migrations
-
-```sh
-alembic upgrade head
-```
-
-### 6. Setting up the database
+### 5. Setting up the database
 
 #### 1. Install PostgreSQL (if not installed)
 - **Linux/macOS:** `sudo apt install postgresql` or `brew install postgresql`
 - **Windows:** Install via [official installer](https://www.postgresql.org/download/)
 
-#### 2. Set up the database with test data
+#### 2. Start and create required resources
+- **Linux/macOS:** `sudo service postgresql start`
+- **Windows:** Start the PostgreSQL service
+- **Connect to the PostgreSQL shell**:
+```sh
+psql -h localhost -U postgres
+```
+- **Inside the PostgreSQL shell**, run the following commands:
+```
+CREATE USER melnyk WITH PASSWORD '12345Sergiy';
+ALTER ROLE melnyk CREATEDB;
+CREATE DATABASE freelance_platform;
+GRANT ALL PRIVILEGES ON DATABASE freelance_platform TO melnyk;
+```
+
+#### 3. Set up the database with test data
 Run this script:
 ```sh
 ./setup_db.sh
+```
+
+### 6. Run database migrations
+
+Use **alembic.ini.example** as a template to create **alembic.ini**.
+Then, run the following command to apply migrations:
+
+```sh
+alembic upgrade head
 ```
 
 ### 7. Start the FastAPI server
@@ -170,15 +188,19 @@ Generate structured daily or monthly reports based on job requests to track tren
 ```bash
 GET http://127.0.0.1:8000/ai/reports/?date=2025-01-16&report_type=daily
 ```
-
+#### Example Output:
+[AI Generated Daily Report](static/report_output.txt)
 ### Generate Statistics  
 Get statistics based on job request titles, including trends, budget distribution, and competition.  
 
 #### Example Request: 
 
 ```bash
-GET http://127.0.0.1:8000/ai/statistics/?title=Web Developer
+GET http://127.0.0.1:8000/ai/statistics/?title=Data Engineer
 ```
+#### Example Output:
+[AI Generated Statistics](static/statistics_output.txt)
+
 ### Price Suggestion
 This endpoint estimates a budget for a job request based on similar past requests.
 ```bash
